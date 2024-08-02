@@ -11,7 +11,7 @@
     <div class="d-flex align-items-center justify-content-center" v-if="!loading">
       <slot></slot>
     </div>
-    <div v-else class="spinner-border spinner-border-sm text-white" role="status"></div>
+    <div v-else class="spinner-border spinner-border-sm" role="status"></div>
   </button>
 </template>
 
