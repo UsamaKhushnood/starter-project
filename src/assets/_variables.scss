@@ -1,0 +1,143 @@
+@import 'colors';
+
+$theme-colors: (
+  'primary': $primary,
+  'primary-subtle': $primary-subtle,
+  'success': $success,
+  'success-subtle': $success-subtle,
+  'light': $light,
+  'light-2': $light-2,
+  'black-subtle': $black-subtle,
+  'dark-2': $dark-2,
+  'dark-subtle': $dark-subtle,
+  'pink': $pink,
+  'pink-subtle': $pink-subtle,
+  'danger': $danger,
+  'secondary': $secondary,
+  'info': $info,
+  'warning': $warning
+);
+
+$custom-colors: ();
+
+@each $color-name, $color-value in $theme-colors {
+  .hover-bg-#{$color-name}:hover {
+    transition: 0.15s all ease-in-out;
+    background-color: $color-value !important;
+  }
+}
+
+@each $color-name, $color-value in $theme-colors {
+  .hover-text-#{$color-name}:hover {
+    transition: 0.15s all ease-in-out;
+    color: $color-value !important;
+  }
+}
+
+@each $color-name, $color-value in $theme-colors {
+  .hover-border-#{$color-name}:hover {
+    transition: 0.15s all ease-in-out;
+    border-color: $color-value !important;
+  }
+}
+
+$spacer: 1rem !default;
+$spacers: () !default;
+
+@for $customSpacer from 0 through 92 {
+  $temp: ();
+  $temp: map-merge(
+    $temp,
+    (
+      $customSpacer: $customSpacer * 0.25rem
+    )
+  );
+  $spacers: map-merge($spacers, $temp);
+}
+
+// Generate hover padding classes
+@each $key, $value in $spacers {
+  .hover-p-#{$key} {
+    transition: 0.15s all ease-in-out;
+    &:hover {
+      padding: $value !important;
+    }
+  }
+
+  // Add classes for each direction
+  @each $direction in (top, right, bottom, left) {
+    .hover-p#{str-slice($direction, 0, 1)}-#{$key} {
+      transition: 0.15s all ease-in-out;
+      &:hover {
+        padding-#{$direction}: $value !important;
+      }
+    }
+  }
+}
+
+// Generate hover margin classes
+@each $key, $value in $spacers {
+  .hover-m-#{$key} {
+    transition: 0.15s all ease-in-out;
+    &:hover {
+      margin: $value !important;
+    }
+  }
+
+  // Add classes for each direction
+  @each $direction in (top, right, bottom, left) {
+    .hover-m#{str-slice($direction, 0, 1)}-#{$key} {
+      transition: 0.15s all ease-in-out;
+      &:hover {
+        margin-#{$direction}: $value !important;
+      }
+    }
+  }
+}
+
+// $box-shadow-sm: 0 1px 6px 0 rgb(212 213 218 / 8%);
+
+$font-sizes: (
+  10: 10px,
+  12: 12px,
+  13: 13px,
+  15: 15px,
+  20: 20px,
+  24: 24px,
+  32: 32px,
+  40: 40px,
+  48: 48px,
+  64: 64px
+);
+
+$breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
+);
+
+@each $size, $value in $font-sizes {
+  .font-size-#{$size} {
+    font-size: $value !important;
+  }
+}
+// Generate font size classes with breakpoints
+@each $size, $value in $font-sizes {
+  @each $breakpoint, $max-width in $breakpoints {
+    @media (max-width: #{$max-width}) {
+      .font-size-#{$size}-#{$breakpoint} {
+        font-size: $value !important;
+      }
+    }
+  }
+}
+
+.tooltip {
+  --bs-tooltip-bg: #1a1d20 !important;
+  --bs-tooltip-color: white !important;
+}
+
+$theme-colors: map-merge($theme-colors, $custom-colors);
+@import 'bootstrap/scss/bootstrap';
